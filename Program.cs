@@ -1,28 +1,19 @@
-﻿Console.WriteLine("Введите число ");
+﻿Console.Write("Введите число ");
 int DD = int.Parse(Console.ReadLine());
-Console.WriteLine("Введите месяц ");
+Console.Write("Введите месяц ");
 int MM = int.Parse(Console.ReadLine());
-Console.WriteLine("Введите год ");
+Console.Write("Введите год ");
 int GG = int.Parse(Console.ReadLine());
 
 int day = 0;
 int d = 0;
 
-int g1 = GG%100;  //год в десятках
-int g2 = GG%28;   // недели каждые 28лет
-int g3 = GG%4;    //проверка на високосный
-int g4 = GG%400;  //каждый 400 год високосный
+if (DD < 0 || MM < 0 || GG < 0) Console.Write("Вы ввели не правильную дату");
 
-if ( g1 == 0 & g4 != 0) d = 365;
-else
+int Day(int i)
 {
-if ( g4 == 0 || g3 == 0) d = 366;
-else d = 365;
-}
-
-if (d == 365)
-{
-    if (MM == 1) day = DD;
+    if (i == 365)
+    {if (MM == 1) day = DD;
     else if (MM == 2) day = DD+31;
     else if (MM == 3) day = DD+59;
     else if (MM == 4) day = DD+90;
@@ -34,9 +25,9 @@ if (d == 365)
     else if (MM == 10) day = DD+273;
     else if (MM == 11) day = DD+304;
     else if (MM == 12) day = DD+334;
-}
-else
-{
+    }
+    else
+    {
     if (MM == 1) day = DD;
     else if (MM == 2) day = DD+31;
     else if (MM == 3) day = DD+60;
@@ -49,37 +40,29 @@ else
     else if (MM == 10) day = DD+274;
     else if (MM == 11) day = DD+305;
     else if (MM == 12) day = DD+335;
+    }
+    return day;
 }
 
+int[] Week = {4,6,0,1,2,4,5,6,0,2,3,4,5,0,1,2,3,5,6,0,1,3,4,5,6,1,2,3};
+
+int g1 = GG%100;  //год в десятках
+int g2 = GG%28;   // недели каждые 28лет
+int g3 = GG%4;    //проверка на високосный
+int g4 = GG%400;  //каждый 400 год високосный
+
+ if ( g1 == 0 & g4 != 0) d = 365;
+else
+{
+    if ( g4 == 0 || g3 == 0) d = 366;
+    else d = 365;
+}
+        
+ day = Day(d);
+
 int week = day%7;
-if (g2 == 0) week = week + 4;
-else if (g2 == 1) week = week + 6;
-else if (g2 == 2) week = week + 0;
-else if (g2 == 3) week = week + 1;
-else if (g2 == 4) week = week + 2;
-else if (g2 == 5) week = week + 4;
-else if (g2 == 6) week = week + 5;
-else if (g2 == 7) week = week + 6;
-else if (g2 == 8) week = week + 0;
-else if (g2 == 9) week = week + 2;
-else if (g2 == 10) week = week + 3;
-else if (g2 == 11) week = week + 4;
-else if (g2 == 12) week = week + 5;
-else if (g2 == 13) week = week + 0;
-else if (g2 == 14) week = week + 1;
-else if (g2 == 15) week = week + 2;
-else if (g2 == 16) week = week + 3;
-else if (g2 == 17) week = week + 5;
-else if (g2 == 18) week = week + 6;
-else if (g2 == 19) week = week + 0;
-else if (g2 == 20) week = week + 1;
-else if (g2 == 21) week = week + 3;
-else if (g2 == 22) week = week + 4;
-else if (g2 == 23) week = week + 5;
-else if (g2 == 24) week = week + 6;
-else if (g2 == 25) week = week + 1;
-else if (g2 == 26) week = week + 2;
-else if (g2 == 27) week = week + 3;
+
+week = week + Week[g2];
 
 if (GG <= 1900) week++;
 
@@ -90,4 +73,3 @@ else if (week == 4 || week == 11 ) Console.WriteLine("Четверг");
 else if (week == 5 || week == 12 ) Console.WriteLine("Пятница");
 else if (week == 6 || week == 13 ) Console.WriteLine("Суббота");
 else if (week == 7 || week == 14 ) Console.WriteLine("Воскресенье");
-
